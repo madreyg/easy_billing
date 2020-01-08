@@ -23,7 +23,7 @@ def create_app():
         return User.query.get(int(user_id))
 
     # blueprint for auth routes in our app
-    from controller import auth as auth_blueprint
+    from auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
     # blueprint for non-auth parts of app
