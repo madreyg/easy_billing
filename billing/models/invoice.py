@@ -1,6 +1,6 @@
 from models.db import get_db_cursor
 from decimal import Decimal
-from models.currency import USD, Currency
+from models.currency import Currency
 
 
 class Invoice:
