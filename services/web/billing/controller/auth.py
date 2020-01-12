@@ -23,10 +23,11 @@ def ssr_login_post():
     user = find_by_email(email)
     if not user or not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
-        return redirect(url_for('auth.ssr_login'))  # if user doesn't exist or password is wrong, reload the page
+        return redirect(url_for('auth.ssr_login', _external=True)
+                        )  # if user doesn't exist or password is wrong, reload the page
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return redirect(url_for('user.ssr_user', user_id=user.id))
+    return redirect(url_for('user.ssr_user', user_id=user.id, _external=True))
 
 
 # for api
@@ -60,7 +61,7 @@ def ssr_signup():
 @login_required
 def ssr_logout():
     logout_user()
-    return redirect(url_for('main.ssr_index'))
+    return redirect(url_for('main.ssr_index'), _external=True)
 
 
 @auth.route('/signup', methods=['POST'])
