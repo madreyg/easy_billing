@@ -61,7 +61,7 @@ def ssr_signup():
 @login_required
 def ssr_logout():
     logout_user()
-    return redirect(url_for('main.ssr_index'), _external=True)
+    return redirect(url_for('main.ssr_index', _external=True))
 
 
 @auth.route('/signup', methods=['POST'])
