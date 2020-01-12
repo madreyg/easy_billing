@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="tile is-ancestor columns">
+        <div class="tile is-parent column">
+            <p class="control">
+                <a href="?filter=user+=+{{ user_id }}&" class="button is-info is-active">
+                    между своими счетами
+                </a>
+            </p>
+        </div>
+        <div class="tile is-parent column">
+            <p class="control">
+                <a href="?filter=created_at%2B%3E%2B{{ last_day }}&" class="button is-info is-active">
+                    за последний день
+                </a>
+            </p>
+        </div>
+        <div class="tile is-parent column">
+            <p class="control">
+                <a href="?filter=invoice+=+{{ invoice_usd.id }}&"
+                   class="button is-info is-active">
+                    USD
+                </a>
+            </p>
+            &nbsp; &nbsp; &nbsp;
+            <p class="control">
+                <a href="?filter=invoice+=+{{ invoice_eur.id }}&"
+                   class="button is-info is-active">
+                    EUR
+                </a>
+            </p>
+            &nbsp; &nbsp; &nbsp;
+            <p class="control">
+                <a href="?filter=invoice+=+{{ invoice_cny.id }}&"
+                   class="button is-info is-active">
+                    CNY
+                </a>
+            </p>
+        </div>
+        <div class="tile is-parent column">
+            <p class="control">
+                <a href="{{ current_url }}sort=created_at+desc" class="button is-info is-active">
+                                    <span class="icon">
+                                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDYwIDYwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2MCA2MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggc3R5bGU9ImZpbGw6Izg2OTdDQjsiIGQ9Ik0yMy41LDYwYy0wLjU1MiwwLTEtMC40NDgtMS0xVjIxYzAtMC41NTIsMC40NDgtMSwxLTFzMSwwLjQ0OCwxLDF2MzgNCgkJQzI0LjUsNTkuNTUyLDI0LjA1Miw2MCwyMy41LDYweiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNMjMuNSw2MGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2MtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNGwxMi0xMg0KCQljMC4zOTEtMC4zOTEsMS4wMjMtMC4zOTEsMS40MTQsMHMwLjM5MSwxLjAyMywwLDEuNDE0bC0xMiwxMkMyNC4wMTIsNTkuOTAyLDIzLjc1Niw2MCwyMy41LDYweiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNMjMuNSw2MGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2wtMTItMTJjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQNCgkJczEuMDIzLTAuMzkxLDEuNDE0LDBsMTIsMTJjMC4zOTEsMC4zOTEsMC4zOTEsMS4wMjMsMCwxLjQxNEMyNC4wMTIsNTkuOTAyLDIzLjc1Niw2MCwyMy41LDYweiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNMjMuNSw2MGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2wtMTItMTJjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQNCgkJczEuMDIzLTAuMzkxLDEuNDE0LDBsMTIsMTJjMC4zOTEsMC4zOTEsMC4zOTEsMS4wMjMsMCwxLjQxNEMyNC4wMTIsNTkuOTAyLDIzLjc1Niw2MCwyMy41LDYweiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNMzYuNSw0MGMtMC41NTIsMC0xLTAuNDQ4LTEtMVYxYzAtMC41NTIsMC40NDgtMSwxLTFzMSwwLjQ0OCwxLDF2MzhDMzcuNSwzOS41NTIsMzcuMDUyLDQwLDM2LjUsNDANCgkJeiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNMjQuNSwxNGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2MtMC4zOTEtMC4zOTEtMC4zOTEtMS4wMjMsMC0xLjQxNGwxMi0xMg0KCQljMC4zOTEtMC4zOTEsMS4wMjMtMC4zOTEsMS40MTQsMHMwLjM5MSwxLjAyMywwLDEuNDE0bC0xMiwxMkMyNS4wMTIsMTMuOTAyLDI0Ljc1NiwxNCwyNC41LDE0eiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNNDguNSwxNGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2wtMTItMTJjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQNCgkJczEuMDIzLTAuMzkxLDEuNDE0LDBsMTIsMTJjMC4zOTEsMC4zOTEsMC4zOTEsMS4wMjMsMCwxLjQxNEM0OS4wMTIsMTMuOTAyLDQ4Ljc1NiwxNCw0OC41LDE0eiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiM4Njk3Q0I7IiBkPSJNNDguNSwxNGMtMC4yNTYsMC0wLjUxMi0wLjA5OC0wLjcwNy0wLjI5M2wtMTItMTJjLTAuMzkxLTAuMzkxLTAuMzkxLTEuMDIzLDAtMS40MTQNCgkJczEuMDIzLTAuMzkxLDEuNDE0LDBsMTIsMTJjMC4zOTEsMC4zOTEsMC4zOTEsMS4wMjMsMCwxLjQxNEM0OS4wMTIsMTMuOTAyLDQ4Ljc1NiwxNCw0OC41LDE0eiIvPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo="/>
+                                        &nbsp; &nbsp; &nbsp;
+                                    </span>
+                    дата создания
+                </a>
+            </p>
+        </div>
+
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <div class="table-container">
+        <table class="table is-narrow is-hoverable is-fullwidth">
+            <thead>
+            <tr>
+                <th><abbr title="id">№ </abbr></th>
+                <th><abbr title="from">Со счета</abbr></th>
+                <th><abbr title="to">На счет</abbr></th>
+                <th><abbr title="created_at">Дата создания</abbr></th>
+                <th><abbr title="updated_at">Дата проведения</abbr></th>
+                <th><abbr title="amount">Сумма</abbr></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for tr in transactions %}
+                <tr>
+                    <th>{{ tr.id }}</th>
+                    <td>{{ tr.invoice_id_from }}</td>
+                    <td>{{ tr.invoice_id_to }}</td>
+                    <td>{{ tr.created_at }}</td>
+                    <td>{{ tr.updated_at }}</td>
+                    <td>{{ tr.amount }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="title">
+        Здравствуйте, {{ name }}!
+        <br>
+        <br>Ваши счета:
+        <br>
+    </h1>
+    <div class="tile is-ancestor">
+        <div class="tile is-ancestor">
+            {% for key, invoice in user.invoices.items() %}
+                <div class="tile is-parent">
+                    <article class="tile is-child ">
+                        <p class="title">{{ key }}</p>
+                        <p class="subtitle">№: {{ invoice.id }}</p>
+                        {% if invoice.currency.name =='USD' %}
+                            <p class=" is-large content">{{ invoice.balance }}$</p>
+                        {% elif invoice.currency.name =='EUR' %}
+                            <p class=" is-large content">{{ invoice.balance }}€</p>
+                        {% elif invoice.currency.name =='CNY' %}
+                            <p class=" is-large content">{{ invoice.balance }}¥</p>
+                        {% endif %}
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="">
+        <p class="title">Сделать перевод:</p>
+        <div class="tile is-ancestor columns">
+            <div class="tile is-parent column">
+                <div class="tile is-child">
+                    <form method="POST" action="/user/{{ user.id }}/transaction">
+                        <div class=" is-large "> Между своими счетами (Без коммиссии)</div>
+                        <select class="select is-medium field" name="from" style="width: 100%">
+                            {% for key, invoice in user.invoices.items() %}
+                                {% if invoice.balance > 0 %}
+                                    <option value="{{ invoice.id }}">{{ key }}_{{ invoice.balance }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <div class="control field">
+                            <input class="input" type="text" name="amount" required="required"
+                                   pattern="[,0-9]{1,20}" placeholder="Amount of money">
+                        </div>
+                        <select class="select is-medium field" name="to" style="width: 100%">
+                            {% for key, invoice in user.invoices.items() %}
+                                <option value="{{ invoice.id }}">{{ key }}_{{ invoice.balance }}</option>
+                            {% endfor %}
+                        </select>
+                        <button class=" button ">
+                            Transfer
+                        </button>
+                    </form>
+                </div>
+                <div class="tile is-child is-one-fifth column">
+                </div>
+                <div class="tile is-child">
+                    <form method="POST" action="/user/{{ user.id }}/transaction">
+                        <div class=" is-large "> На любой счет (Комиссия 1% на счет другого пользователя)</div>
+                        <select class="select is-medium field" name="from" style="width: 100%">
+                            {% for key, invoice in user.invoices.items() %}
+                                {% if invoice.balance > 0 %}
+                                    <option value="{{ invoice.id }}">{{ key }}_{{ invoice.balance }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <div class="control field">
+                            <input class="input" type="text" name="amount" required="required"
+                                   pattern="[,0-9]{1,20}" placeholder="Amount of money">
+                        </div>
+                        <div class="control field">
+                            <input class="input" type="number" name="to" required="required" placeholder="id счета">
+                        </div>
+                        <button class=" button ">
+                            Transfer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% if messages[0] %}
+                    <p class=" has-text-success">
+                        {{ messages[1] }}
+                    </p>
+                {% else %}
+                    <p class=" has-text-danger ">
+                        {{ messages[1] }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}
