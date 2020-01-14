@@ -55,7 +55,13 @@ SSR:
                                   amount - сумма
                             }
         GET  /user/<user_id>/transaction/
-
+               - имеется возможность сортировки и фильтрации, переданной query params:
+                    - ?filter=user+<operation>+<user_id>&
+                    - ?filter=created_at+<operation>+<date iso string>&
+                    - ?filter=invoice+=+<invoice_id>
+                    - ?sort=created_at+desc
+                    можно комбинировать между собой
+                    - ?filter=invoice+=+<invoice_id>&sort=created_at+desc
 API:
 
         POST /api/login/   -  вход пользователя   {
@@ -69,6 +75,13 @@ API:
                                   amount - сумма
                             }
         GET  /api/user/<user_id>/transaction/ - получение списка транзакций пользователя
+               - имеется возможность сортировки и фильтрации, переданной query params:
+                    - ?filter=user+<operation>+<user_id>&
+                    - ?filter=created_at+<operation>+<date iso string>&
+                    - ?filter=invoice+=+<invoice_id>        
+                    - ?sort=created_at+desc
+                    можно комбинировать между собой
+                    - ?filter=invoice+=+<invoice_id>&sort=created_at+desc
 
 
 Также сделано несколько нагрузочный тестов на неоптимизированном приложении поставленному "по-умолчанию" на (Mac os, i7).
